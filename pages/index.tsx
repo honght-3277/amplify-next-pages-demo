@@ -6,10 +6,11 @@ const client = generateClient<Schema>();
 
 export default function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
+  const [newTodoContent, setNewTodoContent] = useState("");
 
   function listTodos() {
     client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
+      next: (data: any) => setTodos([...data.items]),
     });
   }
 
@@ -18,26 +19,94 @@ export default function App() {
   }, []);
 
   function createTodo() {
-    client.models.Todo.create({
-      content: window.prompt("Todo content"),
-    });
+    if (newTodoContent.trim()) {
+      client.models.Todo.create({
+        content: newTodoContent,
+      });
+      setNewTodoContent("");
+    }
+  }
+
+  function deleteTodo(id: string) {
+    client.models.Todo.delete({ id });
+  }
+
+  function handleKeyPress(e: any) {
+    if (e.key === "Enter") {
+      createTodo();
+    }
   }
 
   return (
-    <main>
-      <h1>Sun Asterisk</h1>
-      <button onClick={createTodo}>+ new</button>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.content}</li>
-        ))}
-      </ul>
-      <div>
-        🥳 App successfully hosted. Try creating a new todo.
-        <br />
-        <a href="https://docs.amplify.aws/gen2/start/quickstart/nextjs-pages-router/">
-          Review next steps of this tutorial.
-        </a>
+    <main className="app-container">
+      <div className="todo-card">
+        <div className="header">
+          <div className="logo-container">
+            <div className="logo-icon">✨</div>
+            <h1>Sun Asterisk</h1>
+          </div>
+          <p className="subtitle">Quản lý công việc của bạn hiệu quả</p>
+        </div>
+
+        <div className="input-section">
+          <input
+            type="text"
+            placeholder="Thêm công việc mới..."
+            value={newTodoContent}
+            onChange={(e) => setNewTodoContent(e.target.value)}
+            onKeyPress={handleKeyPress}
+            className="todo-input"
+          />
+          <button onClick={createTodo} className="add-button">
+            <span className="button-icon">+</span>
+            Thêm
+          </button>
+        </div>
+
+        <div className="todos-container">
+          {todos.length === 0 ? (
+            <div className="empty-state">
+              <div className="empty-icon">📝</div>
+              <p>Chưa có công việc nào</p>
+              <p className="empty-subtitle">Hãy thêm công việc đầu tiên của bạn!</p>
+            </div>
+          ) : (
+            <ul className="todos-list">
+              {todos.map((todo) => (
+                <li key={todo.id} className="todo-item">
+                  <div className="todo-content">
+                    <span className="todo-icon">📌</span>
+                    <span className="todo-text">{todo.content}</span>
+                  </div>
+                  <button
+                    onClick={() => deleteTodo(todo.id)}
+                    className="delete-button"
+                    title="Xóa"
+                  >
+                    <span className="delete-icon">🗑️</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div className="footer">
+          <div className="stats">
+            <span className="stat-badge">{todos.length} công việc</span>
+          </div>
+          <div className="success-message">
+            🥳 App đã được deploy thành công! 
+            <a 
+              href="https://docs.amplify.aws/gen2/start/quickstart/nextjs-pages-router/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="docs-link"
+            >
+              Xem hướng dẫn →
+            </a>
+          </div>
+        </div>
       </div>
     </main>
   );
