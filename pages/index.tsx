@@ -45,13 +45,13 @@ export default function App() {
             <div className="logo-icon">✨</div>
             <h1>Sun Asterisk</h1>
           </div>
-          <p className="subtitle">Quản lý công việc của bạn hiệu quả</p>
+          <p className="subtitle">Manage your tasks efficiently</p>
         </div>
 
         <div className="input-section">
           <input
             type="text"
-            placeholder="Thêm công việc mới..."
+            placeholder="Add new task..."
             value={newTodoContent}
             onChange={(e) => setNewTodoContent(e.target.value)}
             onKeyPress={handleKeyPress}
@@ -59,7 +59,7 @@ export default function App() {
           />
           <button onClick={createTodo} className="add-button">
             <span className="button-icon">+</span>
-            Thêm
+            Add
           </button>
         </div>
 
@@ -67,8 +67,8 @@ export default function App() {
           {todos.length === 0 ? (
             <div className="empty-state">
               <div className="empty-icon">📝</div>
-              <p>Chưa có công việc nào</p>
-              <p className="empty-subtitle">Hãy thêm công việc đầu tiên của bạn!</p>
+              <p>No tasks available</p>
+              <p className="empty-subtitle">Add your first task to get started!</p>
             </div>
           ) : (
             <ul className="todos-list">
@@ -81,7 +81,7 @@ export default function App() {
                   <button
                     onClick={() => deleteTodo(todo.id)}
                     className="delete-button"
-                    title="Xóa"
+                    title="Delete"
                   >
                     <span className="delete-icon">🗑️</span>
                   </button>
@@ -93,17 +93,17 @@ export default function App() {
 
         <div className="footer">
           <div className="stats">
-            <span className="stat-badge">{todos.length} công việc</span>
+            <span className="stat-badge">{todos.length} task/tasks</span>
           </div>
           <div className="success-message">
-            🥳 App đã được deploy thành công! 
+            🥳 App successfully deployed! 
             <a 
               href="https://docs.amplify.aws/gen2/start/quickstart/nextjs-pages-router/"
               target="_blank"
               rel="noopener noreferrer"
               className="docs-link"
             >
-              Xem hướng dẫn →
+              View tutorial
             </a>
           </div>
         </div>
