@@ -43,7 +43,7 @@ export default function App() {
         <div className="header">
           <div className="logo-container">
             <div className="logo-icon">✨</div>
-            <h1>Sun*</h1>
+            <h1>Sun Asterisk</h1>
           </div>
           <p className="subtitle">Manage your tasks efficiently</p>
         </div>
