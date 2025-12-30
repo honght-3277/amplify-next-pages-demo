@@ -43,7 +43,7 @@ export default function App() {
         <div className="header">
           <div className="logo-container">
             <div className="logo-icon">✨</div>
-            <h1>Sun Asterisk</h1>
+            <h1>Sun*</h1>
           </div>
           <p className="subtitle">Manage your tasks efficiently</p>
         </div>
@@ -93,17 +93,17 @@ export default function App() {
 
         <div className="footer">
           <div className="stats">
-            <span className="stat-badge">{todos.length} công việc</span>
+            <span className="stat-badge">{todos.length} tasks</span>
           </div>
           <div className="success-message">
-            🥳 App đã được deploy thành công! 
+            🥳 App successfully deployed! 
             <a 
               href="https://docs.amplify.aws/gen2/start/quickstart/nextjs-pages-router/"
               target="_blank"
               rel="noopener noreferrer"
               className="docs-link"
             >
-              Xem hướng dẫn →
+              View documentation →
             </a>
           </div>
         </div>
